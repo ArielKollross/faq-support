@@ -6,11 +6,13 @@ const clientQuestionController = require('./controllres/clientQuestionController
 const routes = express.Router()
 
 routes.get('/cadastro', clientQuestionController.index)
+
 routes.post('/cadastro',celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(), 
-        loginCode: Joi.string(), 
-        email: Joi.string().required().email(), 
+        loginCode: Joi.string().alphanum().allow(""), 
+        email: Joi.string().required().email({
+            minDomainSegments: 2}), 
         ask: Joi.string(),
     })
 }) ,clientQuestionController.create)

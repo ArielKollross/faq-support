@@ -1,11 +1,53 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateIssues1595246304503 implements MigrationInterface {
+export default class CreateIssues1595246304503 implements MigrationInterface {
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-    }
+	public async up(queryRunner: QueryRunner): Promise<void> {
+		await queryRunner.createTable(
+			new Table({
+				name: 'issues',
+				columns: [
+					{
+						name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+					},
+					{
+						name: 'client_name',
+						type: 'varchar',
+					},
+					{
+						name: 'login_code',
+						type: 'varchar',
+					},
+					{
+						name: 'client_email',
+						type: 'varchar',
+						isUnique: true,
+					},
+					{
+						name: 'question',
+						type: 'varchar',
+					},
+					{
+						name: 'created_at',
+						type: 'timestamp',
+						default: 'now()',
+					},
+					{
+						name: 'updated_at',
+						type: 'timestamp',
+						default: 'now()',
+					},
+				],
+			})
+		);
+	}
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-    }
+	public async down(queryRunner: QueryRunner): Promise<void> {
+		await queryRunner.dropTable('issues');
+	}
 
 }

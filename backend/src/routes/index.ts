@@ -4,6 +4,6 @@ import issuesRouter from './issues.routes';
 
 const routes = Router();
 
-routes.use('/'), issuesRouter);
+routes.use(('/issues'), issuesRouter );
 
 export default routes;

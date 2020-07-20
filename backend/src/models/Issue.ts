@@ -23,3 +23,5 @@ class Issue {
 	@CreateDateColumn()
 	updated_at: Date;
 }
+
+export default Issue;

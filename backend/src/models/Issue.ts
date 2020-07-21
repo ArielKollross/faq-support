@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('issues')
 class Issue {
@@ -20,7 +20,7 @@ class Issue {
 	@CreateDateColumn()
 	created_at: Date;
 
-	@CreateDateColumn()
+	@UpdateDateColumn()
 	updated_at: Date;
 }
 

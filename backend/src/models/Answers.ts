@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, JoinColumn, UpdateDateColumn } from 'typeorm';
 
 import Category from './Category';
 
@@ -17,7 +17,7 @@ class Issue {
 	@CreateDateColumn()
 	created_at: Date;
 
-	@CreateDateColumn()
+	@UpdateDateColumn()
 	updated_at: Date;
 }
 

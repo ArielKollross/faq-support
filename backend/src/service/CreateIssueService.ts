@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 
 import Issue from '../models/Issue';
 
+import AppError from '../errors/AppError';
+
 interface Request {
 	client_name: string;
 	login_code: string;
@@ -16,6 +18,17 @@ class CreateIssueService {
 		client_email,
 		question}: Request): Promise<Issue> {
 		const issueRepository = getRepository(Issue);
+
+		const checkIfQuestionExist = await issueRepository.findOne({
+			where: {
+				question,
+				client_email,
+			}
+		});
+
+		if (checkIfQuestionExist) {
+			throw new AppError('Duplicate question!');
+		}
 
 		const issue = issueRepository.create({
 			client_name,

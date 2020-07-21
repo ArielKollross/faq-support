@@ -1,11 +1,18 @@
 import { Router } from 'express';
+import { getRepository } from 'typeorm';
 
 import CreateIssuesService from '../service/CreateIssueService';
+
+import Issue from '../models/Issue';
 
 const issuesRouter = Router();
 
 issuesRouter.get('/', async (request, response) => {
-	return response.json({msg: "ok!"});
+  const issueRepository = getRepository(Issue);
+
+  const issues = await issueRepository.find();
+
+	return response.json(issues);
 });
 
 issuesRouter.post('/', async (request, response) => {
@@ -16,7 +23,7 @@ issuesRouter.post('/', async (request, response) => {
 			question,
 		} = request.body;
 
-		const createIssue = new CreateIssuesService();
+	const createIssue = new CreateIssuesService();
 
 		const issue = await createIssue.execute({
 			client_name,

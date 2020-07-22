@@ -3,6 +3,8 @@ import { getRepository } from 'typeorm';
 
 import CreateAnswerService from '../service/CreateAnswerService';
 
+import ensureAuthenticated from '../middleware/ensureAuthenticated';
+
 import Answer from '../models/Answer';
 
 const answersRouter = Router();
@@ -15,7 +17,7 @@ answersRouter.get('/', async (request, response) => {
 	return response.json(answers);
 });
 
-answersRouter.post('/', async (request, response) => {
+answersRouter.post('/', ensureAuthenticated, async (request, response) => {
 	const {reply, category} = request.body;
 
 	const createAnswer = new CreateAnswerService();

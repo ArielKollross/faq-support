@@ -19,8 +19,16 @@ class CreateUser {
 			where: { name: category},
 		});
 
+		const findExactAnswer = await answerRepository.findOne({
+			 where: { reply },
+		});
+
 		if (!findCategoryId){
 			throw new AppError('Category not registered');
+		}
+
+		if (findExactAnswer) {
+			throw new AppError('This answer is already exist');
 		}
 
 		const newAnswer = answerRepository.create({

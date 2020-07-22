@@ -1,18 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, JoinColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, UpdateDateColumn } from 'typeorm';
 
 import Category from './Category';
 
 @Entity('answers')
-class Issue {
+class Answer {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
 	@Column()
 	reply: string;
 
-	@OneToMany(() => Category, category => category.answers, {eager: true})
+	@ManyToOne(() => Category, category => category.answers, {eager: true})
 	@JoinColumn({ name: 'category_id'})
 	category: Category;
+
+	@Column()
+	category_id: string
 
 	@CreateDateColumn()
 	created_at: Date;
@@ -21,4 +24,4 @@ class Issue {
 	updated_at: Date;
 }
 
-export default Issue;
+export default Answer;

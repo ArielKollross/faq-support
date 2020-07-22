@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, UpdateDateColumn } from 'typeorm';
 
-import Answer from './Answers';
+import Answer from './Answer';
 
 @Entity('categories')
 class Category {

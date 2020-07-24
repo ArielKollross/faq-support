@@ -6,12 +6,13 @@ import Category from '../models/Category';
 import AppError from '../errors/AppError';
 
 interface Request{
+	title: string;
 	reply: string;
 	category?: string;
 }
 
 class CreateUser {
-	public async execute({reply, category}: Request): Promise<Answer> {
+	public async execute({reply, category, title}: Request): Promise<Answer> {
 		const answerRepository = getRepository(Answer);
 		const categoryRepository = getRepository(Category);
 
@@ -20,7 +21,7 @@ class CreateUser {
 		});
 
 		const findExactAnswer = await answerRepository.findOne({
-			 where: { reply },
+			 where: { title, reply },
 		});
 
 		if (!findCategoryId){
@@ -32,6 +33,7 @@ class CreateUser {
 		}
 
 		const newAnswer = answerRepository.create({
+			title,
 			reply,
 			category_id: findCategoryId.id,
 		});

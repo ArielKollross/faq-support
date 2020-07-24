@@ -18,11 +18,11 @@ answersRouter.get('/', async (request, response) => {
 });
 
 answersRouter.post('/', ensureAuthenticated, async (request, response) => {
-	const {reply, category} = request.body;
+	const {reply, category, title} = request.body;
 
 	const createAnswer = new CreateAnswerService();
 
-	const answer =  await createAnswer.execute({reply, category});
+	const answer =  await createAnswer.execute({ title, reply, category});
 
 	return response.json(answer);
 });

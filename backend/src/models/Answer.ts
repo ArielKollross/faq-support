@@ -8,6 +8,9 @@ class Answer {
 	id: string;
 
 	@Column()
+	title: string;
+
+	@Column()
 	reply: string;
 
 	@ManyToOne(() => Category, category => category.answers, {eager: true})

@@ -127,7 +127,6 @@
     },
     methods:{
      postIssue() {
-       console.log(this.issue);
        api.post('/issues', this.issue);
       },
     } 

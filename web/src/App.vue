@@ -3,9 +3,9 @@
   background: #00ADEF;"
   >
     <Navbar/>
-    <v-content>
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
     <Footer/>
   </v-app>
 </template>

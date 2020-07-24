@@ -1,11 +1,11 @@
 <template>
     <v-container>
-      <form>
+      <form @submit.prevent="postIssue">
             <v-card class="mx-4 mb-4" outline>
                 <v-card-text class="secundary">
                   <v-row>
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="name"
+                        <v-text-field v-model="cliente_name"
                         :error-messages="nameErrors"
                         :counter="40"
                         label="Nome Completo"
@@ -17,14 +17,14 @@
                     </v-col>
 
                     <v-col cols="12" md="2">
-                        <v-text-field v-model="loginCode"
+                        <v-text-field v-model="login_code"
                             label="Código da Empresa"
                             required
                         ></v-text-field>
                     </v-col>
 
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="email"
+                        <v-text-field v-model="client_email"
                         :error-messages="emailErrors"
                         label="E-mail"
                         required
@@ -36,7 +36,7 @@
                    <v-col cols="12" md="12">
                       <v-textarea
                       outlined
-                      
+                      v-model="question"
                       name="input-7-4"
                       label="Dúvida"
                       value="Escreva neste campo sua dúvida."
@@ -48,7 +48,7 @@
                 <p class="primary--text font-weight-regular">
                 Por se tratar de um FAQ, nossa equipe irá analiser e seleciona as dúvidas mais comuns entre nossos clientes. Caso precise tirar dúvdias de maneira mais rápida, solicite uma ligação para nosso time do atendimento ao cliente. </p>
 
-              <v-btn class="success mr-4" @click="submit">enviar</v-btn>
+              <v-btn class="success mr-4" type="submit">Enviar</v-btn>
 
               </v-card-text>
 
@@ -64,7 +64,7 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
-  import axios from 'axios'
+  import api from '../services/api';
 
  
 
@@ -83,12 +83,16 @@
       },
     },
 
-    data: () => ({
-      name: '',
-      loginCode: '',
-      email: '',
-      ask: '',
-    }),
+    data(){
+      return{
+        issue: {
+          cliente_name: '',
+          login_code: '',
+          cliente_email: '',
+          question: '',
+        }
+      }
+    },
 
     computed: {
       checkboxErrors () {
@@ -118,13 +122,16 @@
         return errors
       },
     },
-
-    methods: {
-      submit () {
-        this.$v.$touch()
-        axios.get('http://localhost:3333/cadastro')   
-          .then(response => console.log(response))
+    methods:{
+      postIssue() {
+       //const submitIssue = Object.assign({}, this.issue);
+       api.post('/issues',{
+        client_name: this.cliente_name ,
+		    login_code: this.login_code,
+		    client_email: this.cliente_email,
+		    question: this.question,
+       });
       },
-    },
+    }
   }
 </script>

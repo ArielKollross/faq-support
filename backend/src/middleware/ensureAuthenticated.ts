@@ -26,12 +26,12 @@ export default function ensureAuthenticated(
     try{
       const decoded = verify(token, authConfig.jwt.secret);
 
-      //const { sub } = decoded as TokenPayload;
+      const { sub } = decoded as TokenPayload;
 
-      // // inteser user.id on Request express method
-      // request.user = {
-      //   id: sub,
-      // }
+      // insert user.id on Request express method
+      request.user = {
+        id: sub,
+      }
 
       console.log(decoded);
 

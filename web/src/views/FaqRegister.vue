@@ -5,7 +5,8 @@
                 <v-card-text class="secundary">
                   <v-row>
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="cliente_name"
+                        <v-text-field
+                        v-model="issue.client_name"
                         :error-messages="nameErrors"
                         :counter="40"
                         label="Nome Completo"
@@ -17,14 +18,16 @@
                     </v-col>
 
                     <v-col cols="12" md="2">
-                        <v-text-field v-model="login_code"
-                            label="Código da Empresa"
-                            required
+                        <v-text-field
+                        v-model="issue.login_code"
+                        label="Código da Empresa"
+                        required
                         ></v-text-field>
                     </v-col>
 
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="client_email"
+                        <v-text-field
+                        v-model="issue.client_email"
                         :error-messages="emailErrors"
                         label="E-mail"
                         required
@@ -35,8 +38,8 @@
 
                    <v-col cols="12" md="12">
                       <v-textarea
+                      v-model="issue.question"
                       outlined
-                      v-model="question"
                       name="input-7-4"
                       label="Dúvida"
                       value="Escreva neste campo sua dúvida."
@@ -86,12 +89,12 @@
     data(){
       return{
         issue: {
-          cliente_name: '',
+          client_name: '',
           login_code: '',
-          cliente_email: '',
+          client_email: '',
           question: '',
         }
-      }
+      };
     },
 
     computed: {
@@ -123,15 +126,11 @@
       },
     },
     methods:{
-      postIssue() {
-       //const submitIssue = Object.assign({}, this.issue);
-       api.post('/issues',{
-        client_name: this.cliente_name ,
-		    login_code: this.login_code,
-		    client_email: this.cliente_email,
-		    question: this.question,
-       });
+     postIssue() {
+       console.log(this.issue);
+       api.post('/issues', this.issue);
       },
-    }
+    } 
+
   }
 </script>

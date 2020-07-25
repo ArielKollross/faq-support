@@ -1,19 +1,20 @@
 <template>
   <v-container fluid>
     <v-card flat tile class="rounded-card">
-      <v-card-title class="font-weight-regular blue-grey--text text--darken-3">
-        Perguntas Frequentes
-      </v-card-title>
+      <v-card-title class="font-weight-regular blue-grey--text text--darken-3">Perguntas Frequentes</v-card-title>
       <v-row no-gutters>
-        <v-col v-for="faq in Faqs" :key="faq.id" cols="12" md="4" sm="4" class="pa-6">
+        <v-col v-for="(answer, index) in answers" :key="index" cols="12" md="4" sm="4" class="pa-6">
           <v-card flat>
-            <div class="primary--text title pb-2">{{faq.title}}</div>
+            <div class="primary--text title pb-2">{{answer.category.name}}</div>
             <v-divider></v-divider>
-            <div
-              v-for="sub in faq.subTitle"
-              :key="sub.title"
-              class="font-weight-regular py-2 blue-grey--text text--darken-2"
-            >{{sub}}</div>
+
+            <router-link
+            :to="{name: 'AnswerId', params: {name: 'banana'}}"
+            class="font-weight-regular py-2 blue-grey--text text--darken-2"
+            id="link"
+            >
+            {{answer.title}}
+            </router-link>
           </v-card>
         </v-col>
       </v-row>
@@ -22,8 +23,7 @@
 </template>
 
 <script>
-//import api from '../services/api';
-import axios from 'axios';
+import api from '../services/api';
 
 export default {
   data() {
@@ -38,58 +38,23 @@ export default {
       //       sub4: "Como atualizar o certificado A4"
       //     }
       //   },
-      //   {
-      //     title: "Vendas",
-      //     subTitle: {
-      //       sub1: "Como atualizar o certificado A1",
-      //       sub2: "Como atualizar o certificado A2",
-      //       sub3: "Como atualizar o certificado A3",
-      //       sub4: "Como atualizar o certificado A4"
-      //     }
-      //   },
-      //   {
-      //     title: "Estoque",
-      //     subTitle: {
-      //       sub1: "Como atualizar o certificado A1",
-      //       sub2: "Como atualizar o certificado A2",
-      //       sub3: "Como atualizar o certificado A3",
-      //       sub4: "Como atualizar o certificado A4"
-      //     }
-      //   },
-      //   {
-      //     title: "Financeiro",
-      //     subTitle: {
-      //       sub1: "Como atualizar o certificado A1",
-      //       sub2: "Como atualizar o certificado A2",
-      //       sub3: "Como atualizar o certificado A3",
-      //       sub4: "Como atualizar o certificado A4"
-      //     }
-      //   },
-      //   {
-      //     title: "Relatórios",
-      //     subTitle: {
-      //       sub1: "Como atualizar o certificado A1",
-      //       sub2: "Como atualizar o certificado A2",
-      //       sub3: "Como atualizar o certificado A3",
-      //       sub4: "Como atualizar o certificado A4"
-      //     }
-      //   }
       // ],
-      Faqs: [],
+      answers: [],
     };
   },
-   created() {
-     axios.get('http://localhost:3333/answers')
-      .then((response) => {
-        console.log(response);
-        this.Faqs = response.data;
-      });
-    },
+  created: function() {
+    api.get('/answers').then((response) => {
+     this.answers = response.data;
+    });
+  },
 };
 </script>
 
 <style>
 .rounded-card {
   border-radius: 10px;
+}
+#link{
+  text-decoration: none;
 }
 </style>

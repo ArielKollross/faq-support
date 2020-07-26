@@ -4,7 +4,7 @@
       <v-card-title class="font-weight-regular blue-grey--text text--darken-3">Perguntas Frequentes</v-card-title>
       <v-row no-gutters>
         <v-col
-          v-for="(answer,key, index) in testAnswer"
+          v-for="(answer,key, index) in answerByCategory"
           :key="index"
           cols="12"
           md="4"
@@ -25,6 +25,9 @@
           </v-card>
         </v-col>
       </v-row>
+
+      {{getFilteredAnswers}}
+      {{answerByCategory}}
     </v-card>
   </v-container>
 </template>
@@ -78,14 +81,13 @@ export default {
       });
     });
   },
-  computed: {},
   methods: {
     getFilteredAnswers() {
       this.answers.forEach((el) => {
         if (!el.category) return;
 
         if (!this.answerByCategory[el.category]) {
-          this.answerByCategory[el.category] = [
+        return this.answerByCategory[el.category] = [
             {
               id: el.id,
               title: el.title,
@@ -93,7 +95,7 @@ export default {
             },
           ];
         } else
-          this.answerByCategory[el.category].push({
+          return this.answerByCategory[el.category].push({
             id: el.id,
             title: el.title,
             reply: el.reply,

@@ -49,7 +49,8 @@ export default {
         answer: {
           title: '',
           reply: '',
-          category: ''
+          category: '',
+          TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTU2NTI4NTUsImV4cCI6MTU5NjUxNjg1NSwic3ViIjoiODczYzAwZjgtZGViNS00MzA1LThhODAtZGIzMDEwYWM5MGM3In0.U1B7iOE_hQ1trVNJ4pD-qZBNpESlWmBMmq3r6AlUvJ0'
         }
       }
   },
@@ -63,7 +64,10 @@ export default {
   },
   methods:{
     postAnswer(){
-      api.post('/answers', this.answer )
+      api.post('/answers', this.answer, {
+        headers: {
+          'Authorization': 'Bearer '+this.TOKEN 
+      }});
     }
   }
 };

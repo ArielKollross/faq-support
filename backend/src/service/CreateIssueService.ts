@@ -19,16 +19,15 @@ class CreateIssueService {
 		question}: Request): Promise<Issue> {
 		const issueRepository = getRepository(Issue);
 
-		const checkIfQuestionExist = await issueRepository.findOne({
-			where: {
-				question,
-				client_email,
-			}
-		});
+		// const checkIfQuestionExist = await issueRepository.findOne({
+		// 	where: {
+		// 		question,
+		// 	}
+		// });
 
-		if (checkIfQuestionExist) {
-			throw new AppError('Duplicate question!');
-		}
+		// if (checkIfQuestionExist) {
+		// 	throw new AppError('Duplicate question!');
+		// }
 
 		const issue = issueRepository.create({
 			client_name,

@@ -6,10 +6,12 @@ import Home from '../views/Home'
 import Answers from  '../views/Answer'
 import CreateAnswer from '../views/CreateAnswer';
 
+import authRoutes from '../modules/auth/router';
 
 Vue.use(VueRouter)
 
 const routes = [
+  ...authRoutes,
   {
     path: '/',
     name: 'Home',

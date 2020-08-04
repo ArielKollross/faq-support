@@ -1,6 +1,6 @@
 <template>
-  <v-app style="
-  background: #00ADEF;"
+  <v-app 
+  style="background: #00ADEF;"
   >
     <Navbar/>
     <v-main>

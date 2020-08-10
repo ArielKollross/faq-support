@@ -1,48 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Faq from '../views/Faq'
-import FaqRegister from '../views/FaqRegister'
-import Home from '../views/Home'
-import Answers from  '../views/Answer'
-import CreateAnswer from '../views/CreateAnswer';
-
-import authRoutes from '../modules/auth/router';
 
 Vue.use(VueRouter)
 
 const routes = [
-  ...authRoutes,
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('../pages/Home'),
   },
   {
     path: '/faq',
     name: 'Faq',
-    component: Faq
+    component: () => import('../pages/Faq'),
+  },
+  {
+    path: '/login-adm',
+    name: 'Login',
+    component: () => import('../pages/Login'),
   },
   {
     path: '/cadastro',
     name: 'cadastro',
-    component: FaqRegister
+    component: () => import('../pages/FaqRegister'),
   },
   {
     path: '/respostas',
     name: 'Answers',
-    component: Answers,
-    children: [
-      {
-        path: ':/id',
-        name: 'AnswersId',
-        component: Answers
-      }
-    ]
+    component: () => import('../pages/Answer'),
   },
   {
     path: '/submitanswer',
     name: 'createAnswer',
-    component: CreateAnswer,
+    component: () => import('../pages/CreateAnswer'),
   }
 ]
 

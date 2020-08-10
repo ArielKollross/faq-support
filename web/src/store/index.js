@@ -1,16 +1,25 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-//import api from '../services/api';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+import VuePersist from 'vuex-persist';
+
+import state from './state';
+import mutations from './mutations';
+import actions from './actions';
+
+
+const vuexPersist = new VuePersist({
+  key: 'faq',
+  storage: window.localStorage,
+});
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+  plugins: [vuexPersist.plugin],
+  state,
+  mutations,
+  actions,
+  getters: {},
+  modules: {}
+});

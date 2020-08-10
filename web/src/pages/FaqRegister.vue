@@ -67,7 +67,7 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
-  import api from '../services/api';
+  import api from '../services/api.service';
 
  
 

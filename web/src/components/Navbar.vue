@@ -1,33 +1,8 @@
 <template>
-  <v-app>
-        <v-navigation-drawer
-        v-model="drawer"
-        mini-variant
-        app
-        clipped
-      >
-        <v-list dense>
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-view-dashboard</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Dashboard</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-cog</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Settings</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
+  <v-container>
+    <v-app-bar app clipped-left flat color="secondary" dark>
+      <v-app-bar-nav-icon light @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-
-    <v-app-bar clipped-left app color="secondary" dark>
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -39,6 +14,7 @@
         :to="{name: 'Home'}"
       />
     </div>
+    
     <v-spacer></v-spacer>
 
     <v-btn text color="primary" :to="{name: 'Home'}">Home</v-btn>
@@ -49,19 +25,47 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn class="primary" :to="{name: 'cadastro'}" v-if="!isAuthenticated">
+    <v-btn class="primary" :to="{name: 'cadastro'}" v-if="!!isAuthenticated">
       <span class="mr-2">Enviar Pergunta</span>
       <v-icon>mdi-help-box</v-icon>
     </v-btn>
 
   </v-app-bar>
-  </v-app>
+
+   <v-navigation-drawer
+        v-model="drawer"
+        app
+        clipped
+        mini-variant
+      >
+       <v-list dense nav>
+                <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+                    <v-list-item-icon>
+                        <v-icon>{{ link.icon }}</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{ link.text }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+      </v-navigation-drawer>
+  </v-container>
 </template>
 
 <script>
 export default {
+   data: () => ({
+    drawer: true,
+    links: [
+         { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/' },
+         { icon: 'mdi-folder', text: 'My Projects', route: '/projects' },
+         { icon: 'mdi-cog', text: 'Team', route: '/team' },
+       ]
+  }),
   computed: {
     isAuthenticated() {
+      console.log(!this.$store.state.authenticated);
       return this.$store.state.authenticated;
     },
   },

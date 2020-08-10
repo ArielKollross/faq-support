@@ -3,7 +3,7 @@
   style="background: #00ADEF;"
   >
     <Navbar/>
-    <v-main>
+    <v-main class="mx-4 mb-4">
       <router-view></router-view>
     </v-main>
     <!-- <Footer/> -->

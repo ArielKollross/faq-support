@@ -20,6 +20,11 @@ const routes = [
     component: () => import('../pages/Login'),
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('../pages/Dashboard'),
+  },
+  {
     path: '/cadastro',
     name: 'cadastro',
     component: () => import('../pages/FaqRegister'),

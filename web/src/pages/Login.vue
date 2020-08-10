@@ -1,10 +1,21 @@
 <template>
    <v-container>
      <v-layout justify-center align-center>
+
+      <v-alert 
+      id="alert"
+      type="error"  
+      v-if="error.message" 
+      max-width="600px" 
+      dismissible
+      >
+        {{error.message}}
+      </v-alert>
+
        <v-flex xs12 sm5 md5 >
           <v-card >
 
-            <v-toolbar>
+            <v-toolbar> 
               <v-toolbar-title>Login</v-toolbar-title>
             </v-toolbar>
 
@@ -52,8 +63,9 @@ export default {
    user: {
      email: '',
      password: '',
-     loading: false,
-     message: '' 
+   },
+   error: {
+     message: null,
    },
  }),
   validations: {
@@ -68,13 +80,8 @@ export default {
       }
     }
   },
+
   methods: {
-    log() {
-      console.log('Vuelidate: ', this.$v);
-     },
-     submit() {
-       console.log('User: ', this.user);
-     },
     async handleLogin() {
       try {
         const response = await api.post('/sessions', {
@@ -83,38 +90,24 @@ export default {
         });
 
         const {user, token} = response.data;
+
         this.$store.dispatch('login', {user, token});
+        this.$router.push('/dashboard');
 
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
+        this.error.message = "Falha ao realizar login/autenticação";
       }
-
-      // this.loading = true;
-      // this.$validator.validateAll().then(isValid => {
-      //   if (!isValid) {
-      //     this.loading = false;
-      //     return;
-      //   }
-      //   if (this.user.email && this.user.password) {
-      //     this.$store.dispatch('auth/login', this.user).then(
-      //       () => {
-      //         console.log('logado!!');
-      //       },
-      //       error => {
-      //         this.loading = false;
-      //         this.message =
-      //           (error.response && error.response.data) ||
-      //           error.message ||
-      //           error.toString();
-      //       }
-      //     );
-      //   }
-      // });
     }
   }
 }
 </script>
 
 <style>
-  
+ #alert{
+   position: absolute;
+
+   top: 9px;
+   right: 9px;
+ }
 </style>

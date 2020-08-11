@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card flat tile class="rounded-card">
+    <v-card flat tile>
       <v-card-title class="font-weight-regular blue-grey--text text--darken-3">Perguntas Frequentes</v-card-title>
       <v-row no-gutters >
         <v-col
@@ -108,9 +108,6 @@ export default {
 </script>
 
 <style>
-.rounded-card {
-  border-radius: 10px;
-}
 #link {
   text-decoration: none;
 }

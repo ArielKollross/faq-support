@@ -22,15 +22,39 @@
           <v-card-title primary-title>Criação de respostas</v-card-title>
           <v-row>
             <v-col cols="12" md="8">
-              <v-text-field required name="title" label="Título" v-model="answer.title"></v-text-field>
+              <v-text-field
+              class="test"
+              background-color="#efefef"
+              solo
+              flat
+              required 
+              name="title" 
+              label="Título" 
+              v-model="answer.title"
+              ></v-text-field>
             </v-col>
 
             <v-col cols="12" md="4">
-              <v-select required :items="categories" label="Categorias" v-model="answer.category"></v-select>
+              <v-select
+              background-color="#efefef"
+              class="inputfield"
+              solo
+              flat
+              required
+              :items="categories"
+              label="Categorias"
+              v-model="answer.category"
+              ></v-select>
             </v-col>
 
             <v-col cols="12">
-              <v-textarea required outlined v-model="answer.reply"></v-textarea>
+              <v-textarea
+              background-color="#efefef"
+              solo
+              flat
+              required 
+              v-model="answer.reply"
+              ></v-textarea>
             </v-col>
           </v-row>
           <v-btn class="success mr-4" type="submit">Enviar</v-btn>

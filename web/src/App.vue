@@ -6,7 +6,7 @@
     <v-main class="mx-2 mb-2">
       <router-view></router-view>
     </v-main>
-    <Footer/>
+    <Footer v-if="!isAuthenticated" />
   </v-app>
 </template>
 
@@ -25,5 +25,10 @@ export default {
   data: () => ({
     //
   }),
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.authenticated;
+    }
+  }
 };
 </script>

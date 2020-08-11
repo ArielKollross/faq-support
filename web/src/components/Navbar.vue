@@ -3,7 +3,8 @@
     <v-app-bar app clipped-left flat color="secondary" dark>
       <v-app-bar-nav-icon light @click="drawer = !drawer" v-if="isAuthenticated"></v-app-bar-nav-icon>
 
-      <div class="d-flex align-center">
+          
+      <div class="d-flex align-center" @click="handleRerirectHome" >
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -11,7 +12,6 @@
           src="https://blog.connectplug.com.br/wp-content/uploads/2018/03/logo.png"
           transition="scale-transition"
           width="200"
-          :to="{name: 'Home'}"
         />
       </div>
 
@@ -78,6 +78,12 @@ export default {
       console.log("deslogado!");
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    handleRerirectHome() {
+      if(this.$route !== '/') {
+        this.$router.push("/");
+      }
+      return;
     },
   },
   computed: {

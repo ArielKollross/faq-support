@@ -4,7 +4,6 @@
     tile
     class="rounded-card pa-5"
     flat
-    height="250px"
     >
       
       <v-card-title class="display-1 font-weight-bold justify-center primary--text"
@@ -22,17 +21,17 @@
       <v-card-subtitle class="subtitle-1 font-weight-bold text-center primary--text"
       >Você também pode acessar os tópicos abaixo para encontrar o que está procurando.</v-card-subtitle>
 
+    <MainDoubts/>
     </v-card>
 
-    <PrincipaisDuvidas/>
   </v-container> 
 </template>
 
 <script>
-import PrincipaisDuvidas from '../components/PrincipaisDuvidas'
+import MainDoubts from '../components/MainDoubts'
 export default {
   components: {
-    PrincipaisDuvidas,
+    MainDoubts,
   }
 }
 </script>

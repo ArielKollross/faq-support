@@ -81,7 +81,7 @@ export default {
     },
     handleRerirectHome() {
       if(this.$route !== '/') {
-        this.$router.push("/");
+        this.$router.push("/").catch(() => {});
       }
       return;
     },

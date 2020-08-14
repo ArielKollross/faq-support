@@ -57,7 +57,7 @@
               ></v-textarea>
             </v-col>
           </v-row>
-          <v-btn class="success mr-4" type="submit">Enviar</v-btn>
+          <v-btn class="primary mr-4" type="submit">Enviar</v-btn>
         </v-card-text>
       </v-card>
     </form>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import api from "../services/api.service";
+import api from "../../services/api.service";
 
 export default {
   data() {
@@ -84,32 +84,35 @@ export default {
     };
   },
   created() {
-    api.get("/categories").then((response) => {
+    api.get('/categories').then((response) => {
       this.categories = response.data.map((category) => {
         return category.name;
       });
     });
   },
   methods: {
-    handlePostAnswer() {
+   async handlePostAnswer() {
       const { token } = this.$store.state;
 
-      api
-        .post("/answers", this.answer, {
+        try {
+          await api.post('/answers', this.answer, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        })
-        .then((response) => {
-          response.status == 200
+          });
+
+          this.$router.push('/questions');
+          
+        } catch (error) {
+          error.status == 200
             ? (this.message.success = "Reposta registrada com sucesso")
             : (this.message.error = "Erro ao submeter resposta");
 
-          if (response.state != 200) {
-            console.log(response);
+          if (error.state != 200) {
+            console.log(error);
           }
-        });
+        }
     },
   },
 };
@@ -122,4 +125,9 @@ export default {
    top: -10px;
    right: -30px;
  }
+
+ .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+  background-color: #8AC926;
+  color: #F8f8f8;
+}
 </style>

@@ -54,7 +54,7 @@
             class="primary--text font-weight-regular"
           >Por se tratar de um FAQ, nossa equipe irá analiser e seleciona as dúvidas mais comuns entre nossos clientes. Caso precise tirar dúvdias de maneira mais rápida, solicite uma ligação para nosso time do atendimento ao cliente.</p>
 
-          <v-btn class="success mr-4" type="submit">Enviar</v-btn>
+          <v-btn class="mr-4"  type="submit">Enviar</v-btn>
         </v-card-text>
       </v-card>
     </form>
@@ -65,7 +65,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, maxLength, email } from "vuelidate/lib/validators";
-import api from "../services/api.service";
+import api from "../../services/api.service";
 
 export default {
   mixins: [validationMixin],
@@ -104,5 +104,9 @@ export default {
 <style>
 #login-code-field{
   max-width: 200px;
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+  background-color: #8AC926;
+  color: #F8f8f8;
 }
 </style>

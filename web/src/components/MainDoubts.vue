@@ -15,10 +15,10 @@
             <div class="primary--text title pb-2">{{key}}</div>
             <v-divider></v-divider>
 
-            <div v-for="ans in answer" :key="ans.id">
+            <div v-for="ans in answer" :key="ans.id" class="link-group">
               <router-link
-                :to="{name: 'AnswerId', params: {name: 'banana'}}"
-                class="font-weight-regular py-2 blue-grey--text text--darken-2"
+                :to="{ name: 'Answers', params: { id: ans.id }}"
+                class="font-weight-regular py-2  blue-grey--text text--darken-2"
                 id="link"
               >{{ans.title}}</router-link>
             </div>
@@ -35,33 +35,6 @@ import api from "../services/api.service";
 export default {
   data() {
     return {
-      testAnswer: {
-        Estoque: [
-          {
-            id: "48e94ec2-ce94-48f7-9630-78cb9566f010",
-            title: "Cadastrando um novo produto",
-            reply:
-              "Para cadastrar um novo atributo vamos em config ..............",
-          },
-          {
-            id: "4f2096e1-d51c-478a-b63f-833eb8e7aff4",
-            title: "Alterando preço do Produto",
-            reply: "Para alterar preço do produto ..............",
-          },
-        ],
-        Financeiro: [
-          {
-            id: "9c34e639-ecc9-495f-b531-5f3604402606",
-            title: "Como lançar um gasto no meu sistema",
-            reply: "Para .......................",
-          },
-          {
-            id: "5af33938-a202-480b-9dd2-9a7f54a9c7a0",
-            title: "Como lançar um gasto no meu sistema",
-            reply: "Para ......szddzsdzsdzsd.................",
-          },
-        ],
-      },
       answers: [],
       answerByCategory: {},
     };
@@ -100,7 +73,6 @@ export default {
             reply: el.reply,
           });
       });
-      console.log(answerByCategory)
       return answerByCategory;
     },
   },
@@ -111,4 +83,14 @@ export default {
 #link {
   text-decoration: none;
 }
+.link-group {
+  margin-top: 12px;
+}
+.v-application .blue-grey--text.text--darken-2{
+  transition: 0.4s;
+}
+.v-application .blue-grey--text.text--darken-2:hover {
+  color: #00ADEF !important;
+}
+
 </style>

@@ -27,8 +27,8 @@
             <v-col cols="12" md="6" :class="`pl-3 issue ${issue.status}`">
               <div class="caption grey--text">Questão</div>
               <router-link
-              :to="{ name: 'ListQuestionsDetails', params: { id: issue.id }}"
               class="issue-link"
+              :to="{ name: 'ListQuestionsDetails', params: { questionId: issue.id }}"
               >{{issue.question}}</router-link>
             </v-col>
 
@@ -75,7 +75,7 @@ export default {
       issues: 'getIssues',
     }),
   },
-    monted() {
+    mounted() {
     this.$store.dispatch('getData')
       .then(error => console.log(error));
   },
@@ -96,10 +96,11 @@ export default {
 <style>
 .issue-link{
   text-decoration: none;
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 .issue-link:hover {
-  color: #00ADEF;
   cursor: pointer;
+  color: #00ADEF !important;
 }
 
 .project.complete {

@@ -64,12 +64,12 @@ export default {
     drawer: true,
     links: [
       { icon: "mdi-view-dashboard", text: "Dashboard", route: "/dashboard" },
+      {icon: 'mdi-format-list-checks', text: "Lista de perguntas", route: '/questions'},
       {
         icon: "mdi-comment-question",
         text: "My Projects",
         route: "/submit-answer",
       },
-      {icon: 'mdi-format-list-checks', text: "Lista de perguntas", route: '/questions'},
       { icon: "mdi-home", text: "home", route: "/" },
     ],
   }),

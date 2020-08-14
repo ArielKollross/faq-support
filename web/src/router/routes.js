@@ -30,7 +30,7 @@ const routes = [
         // }],
     },
     {
-      path: '/questions/:id',
+      path: '/questions/:questionId',
       name: 'ListQuestionsDetails',
       component: () => import('../pages/ManagerUser/QuestionDetails'),
     },

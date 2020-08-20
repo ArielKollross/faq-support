@@ -26,7 +26,7 @@ class AuthenticateUserService {
 		})
 
 		if(! user){
-			throw new AppError('invalid login credentials', 401);
+			throw new AppError('invalid login credentials', 401)
 		}
 
 		const passwordCompare = await compare(password, user.password);

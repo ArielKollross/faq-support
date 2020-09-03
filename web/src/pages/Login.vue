@@ -22,6 +22,7 @@
             <v-card-text>
               <v-form>
                 <v-text-field
+                  type="input"
                   name="email"
                   label="email"
                   prepend-icon="mdi-account"

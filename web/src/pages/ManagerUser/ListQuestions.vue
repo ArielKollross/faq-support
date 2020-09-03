@@ -58,8 +58,15 @@
 
           <v-row cols="12">
             <v-divider></v-divider>
-          </v-row>
+          </v-row>          
         </v-card>
+
+         <Pagination
+         :pagination="pagination" 
+         @onPreviousClick="search" 
+         @onNextClick="search"
+         ></Pagination>
+
       </v-container>
     </v-card>
   </v-container>
@@ -67,9 +74,23 @@
 
 <script>
 import moment from "moment";
- import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+
+import Pagination from '@/components/Pagination';
 
 export default {
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      pagination: {
+        offset: 0,
+        limit: 5,
+        count: 0
+      }
+    };
+  },
   computed: {
     ...mapGetters({
       issues: 'getIssues',
@@ -77,7 +98,13 @@ export default {
   },
     mounted() {
     this.$store.dispatch('getData')
-      .then(error => console.log(error));
+      .then(error => {
+        if(error) {
+          console.log(error);
+        }
+      });
+    
+    this.search();
   },
   methods: {
     sortBy(prop) {

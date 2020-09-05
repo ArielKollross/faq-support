@@ -1,9 +1,8 @@
-import { getRepository } from 'typeorm';
-
 import Issue from '@modules/issues/infra/typeorm/entities/Issue';
+import IIssueRepository from '@modules/issues/repositories/IIssuesRepository';
 // import AppError from '@shared/errors/AppError';
 
-interface Request {
+interface IRequest {
 	client_name: string;
 	login_code: string;
 	client_email: string;
@@ -11,32 +10,10 @@ interface Request {
 }
 
 class CreateIssueService {
-	public async execute({
-		client_name,
-		login_code,
-		client_email,
-		question,
-	}: Request): Promise<Issue> {
-		const issueRepository = getRepository(Issue);
+	constructor(private issuesRepository: IIssueRepository) {}
 
-		// const checkIfQuestionExist = await issueRepository.findOne({
-		// 	where: {
-		// 		question,
-		// 	}
-		// });
-
-		// if (checkIfQuestionExist) {
-		// 	throw new AppError('Duplicate question!');
-		// }
-
-		const issue = issueRepository.create({
-			client_name,
-			login_code,
-			client_email,
-			question,
-		});
-
-		await issueRepository.save(issue);
+	public async execute(issueData: IRequest): Promise<Issue> {
+		const issue = await this.issuesRepository.create(issueData);
 
 		return issue;
 	}

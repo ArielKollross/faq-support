@@ -1,7 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class CreateIssues1595246304503 implements MigrationInterface {
-
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(
 			new Table({
@@ -9,10 +8,10 @@ export default class CreateIssues1595246304503 implements MigrationInterface {
 				columns: [
 					{
 						name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+						type: 'uuid',
+						isPrimary: true,
+						generationStrategy: 'uuid',
+						default: 'uuid_generate_v4()',
 					},
 					{
 						name: 'client_name',
@@ -42,12 +41,11 @@ export default class CreateIssues1595246304503 implements MigrationInterface {
 						default: 'now()',
 					},
 				],
-			})
+			}),
 		);
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.dropTable('issues');
 	}
-
 }

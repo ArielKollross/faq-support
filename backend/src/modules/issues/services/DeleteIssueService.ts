@@ -1,11 +1,18 @@
-// import { getRepository } from 'typeorm';
+import IIssueRepository from '@modules/issues/repositories/IIssuesRepository';
+// import AppError from '@shared/errors/AppError';
 
-// import Issue from '@modules/issues/infra/typeorm/entities/Issue';
+class DeleteIssueService {
+	constructor(private issuesRepository: IIssueRepository) {}
 
-class DeleteIssues {
-	public async execute(): Promise<void> {
-		//
+	public async execute(id: string): Promise<void> {
+		// const issue = await this.issuesRepository.findById(id);
+
+		// if (!issue) {
+		// 	throw new AppError('Issue not found! Error to delete');
+		// }
+
+		await this.issuesRepository.deleteIssue(id);
 	}
 }
 
-export default DeleteIssues;
+export default DeleteIssueService;

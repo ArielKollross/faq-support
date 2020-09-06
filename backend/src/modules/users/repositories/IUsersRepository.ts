@@ -9,6 +9,7 @@ interface IUserDTO {
 export default interface IUsersRepository {
 	create(data: IUserDTO): Promise<User>;
 	find(): Promise<User[]>;
+	findById(id: string): Promise<User | undefined>;
 	findUserByEmail(email: string): Promise<User | undefined>;
 	delete(id: string): Promise<void>;
 }

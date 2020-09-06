@@ -23,6 +23,12 @@ class CreateUser implements IUserRepository {
 		return users;
 	}
 
+	public async findById(id: string): Promise<User | undefined> {
+		const user = await this.ormRepository.findOne(id);
+
+		return user;
+	}
+
 	public async findUserByEmail(email: string): Promise<User | undefined> {
 		const user = await this.ormRepository.findOne({
 			where: { email },

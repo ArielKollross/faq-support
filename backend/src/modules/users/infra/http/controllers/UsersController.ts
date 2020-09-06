@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
-import User from '@modules/users/infra/typeorm/entities/User';
+import DeleteUserService from '@modules/users/services/DeleteUserService';
 
 export default class UsersController {
 	public async index(request: Request, response: Response): Promise<Response> {
@@ -27,5 +27,16 @@ export default class UsersController {
 		delete user.password;
 
 		return response.json(user);
+	}
+
+	public async delete(request: Request, response: Response): Promise<Response> {
+		const usersRepository = new UsersRepository();
+		const deleteUser = new DeleteUserService(usersRepository);
+
+		const { id } = request.params;
+
+		await deleteUser.execute(id);
+
+		return response.status(200).send();
 	}
 }

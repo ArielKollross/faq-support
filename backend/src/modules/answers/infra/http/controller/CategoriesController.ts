@@ -1,23 +1,22 @@
 import { Request, Response } from 'express';
 
-import { getRepository } from 'typeorm';
-
-import Category from '@modules/answers/infra/typeorm/entities/Category';
+import CategoryRepository from '@modules/answers/infra/typeorm/repositories/CategoryRepository';
 import CreateCategoryService from '@modules/answers/services/CreateCategoryService';
 
 export default class CategoriesController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const categoriesRepository = getRepository(Category);
+		const categoriesRepository = new CategoryRepository();
 
-		const category = await categoriesRepository.find();
+		const categories = await categoriesRepository.find();
 
-		return response.json(category);
+		return response.json(categories);
 	}
 
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name } = request.body;
 
-		const createCategory = new CreateCategoryService();
+		const categoriesRepository = new CategoryRepository();
+		const createCategory = new CreateCategoryService(categoriesRepository);
 
 		const category = await createCategory.execute(name);
 

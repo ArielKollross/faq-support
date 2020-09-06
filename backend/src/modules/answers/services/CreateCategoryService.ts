@@ -1,22 +1,19 @@
-import { getRepository } from 'typeorm';
-
 import Category from '@modules/answers/infra/typeorm/entities/Category';
+import ICategoryRepository from '@modules/answers/repositories/ICategoryRepository';
 
 import AppError from '@shared/errors/AppError';
 
 class CreateCategory {
+	constructor(private categoriesRepository: ICategoryRepository) {}
+
 	public async execute(name: string): Promise<Category> {
-		const categoriesRepository = getRepository(Category);
+		const category = await this.categoriesRepository.findCategory(name);
 
-		const findExistCategory = await categoriesRepository.findOne({ name });
-
-		if (findExistCategory) {
-			throw new AppError('This category is already booked');
+		if (category) {
+			throw new AppError('This category name is already registered');
 		}
 
-		const newCategory = categoriesRepository.create({ name });
-
-		await categoriesRepository.save(newCategory);
+		const newCategory = await this.categoriesRepository.create(name);
 
 		return newCategory;
 	}

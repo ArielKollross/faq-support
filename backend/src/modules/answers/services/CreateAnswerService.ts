@@ -1,46 +1,45 @@
-import { getRepository } from 'typeorm';
+import IAnswerRepository from '@modules/answers/repositories/IAnswerRepository';
+import ICategoryRepository from '@modules/answers/repositories/ICategoryRepository';
 
 import Answer from '@modules/answers/infra/typeorm/entities/Answer';
-import Category from '@modules/answers/infra/typeorm/entities/Category';
 
 import AppError from '@shared/errors/AppError';
 
-interface Request {
+interface IRequest {
 	title: string;
 	reply: string;
-	category?: string;
+	category: string;
+	category_id?: string;
 }
 
 class CreateUser {
-	public async execute({ reply, category, title }: Request): Promise<Answer> {
-		const answerRepository = getRepository(Answer);
-		const categoryRepository = getRepository(Category);
+	constructor(
+		private answerRepository: IAnswerRepository,
+		private categoryRepository: ICategoryRepository,
+	) {}
 
-		const findCategoryId = await categoryRepository.findOne({
-			where: { name: category },
-		});
+	public async execute({ title, reply, category }: IRequest): Promise<Answer> {
+		const findCategory = await this.categoryRepository.findCategory(category);
 
-		const findExactAnswer = await answerRepository.findOne({
-			where: { title, reply },
-		});
-
-		if (!findCategoryId) {
-			throw new AppError('Category not registered');
+		if (!findCategory) {
+			throw new AppError('Category is not register or empty');
 		}
 
-		if (findExactAnswer) {
-			throw new AppError('This answer is already exist');
+		const findExistTitle = await this.answerRepository.findExistTitle(title);
+
+		const findExistReply = await this.answerRepository.findExistReply(reply);
+
+		if (findExistTitle || findExistReply) {
+			throw new AppError('Title or answer is already registered');
 		}
 
-		const newAnswer = answerRepository.create({
+		const answer = await this.answerRepository.create({
 			title,
 			reply,
-			category_id: findCategoryId.id,
+			category_id: findCategory.id,
 		});
 
-		await answerRepository.save(newAnswer);
-
-		return newAnswer;
+		return answer;
 	}
 }
 

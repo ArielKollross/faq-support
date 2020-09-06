@@ -1,23 +1,24 @@
 import { Request, Response } from 'express';
 
-import { getRepository } from 'typeorm';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 export default class UsersController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const usersRepository = getRepository(User);
+		const usersRepository = new UsersRepository();
 
 		const users = await usersRepository.find();
 
-		const filteredUsers = users.map(({ password, ...rest }) => rest);
+		const removePasswordByUsers = users.map(({ password, ...rest }) => rest);
 
-		return response.json(filteredUsers);
+		return response.json(removePasswordByUsers);
 	}
 
 	public async create(request: Request, response: Response): Promise<Response> {
-		const createUser = new CreateUserService();
+		const usersRepository = new UsersRepository();
+		const createUser = new CreateUserService(usersRepository);
 
 		const { name, email, password } = request.body;
 

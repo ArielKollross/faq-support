@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 
-import IUserRepository from '@modules/users/repositories/IUsersRepository';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -18,10 +18,10 @@ interface IResponse {
 }
 
 class AuthenticateUserService {
-	constructor(private userRepository: IUserRepository) {}
+	constructor(private usersRepository: IUsersRepository) {}
 
 	public async execute({ email, password }: IRequest): Promise<IResponse> {
-		const user = await this.userRepository.findUserByEmail(email);
+		const user = await this.usersRepository.findUserByEmail(email);
 
 		if (!user) {
 			throw new AppError('invalid login credentials', 401);

@@ -7,7 +7,7 @@ class CreateCategory {
 	constructor(private categoriesRepository: ICategoryRepository) {}
 
 	public async execute(name: string): Promise<Category> {
-		const category = await this.categoriesRepository.findCategory(name);
+		const category = await this.categoriesRepository.findCategoryByName(name);
 
 		if (category) {
 			throw new AppError('This category name is already registered');

@@ -1,33 +1,29 @@
-import { getRepository, Repository } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 import ICategoryRepository from '@modules/answers/repositories/ICategoryRepository';
 import Category from '@modules/answers/infra/typeorm/entities/Category';
 
 class CreateCategory implements ICategoryRepository {
-	private ormRepository: Repository<Category>;
-
-	constructor() {
-		this.ormRepository = getRepository(Category);
-	}
+	private categories: Category[] = [];
 
 	public async find(): Promise<Category[]> {
-		const categories = await this.ormRepository.find();
+		const categories = this.categories.filter(element => element);
 
 		return categories;
 	}
 
 	public async findCategoryByName(name: string): Promise<Category | undefined> {
-		const category = await this.ormRepository.findOne({
-			where: { name },
-		});
+		const category = this.categories.find(element => element.name === name);
 
 		return category;
 	}
 
 	public async create(name: string): Promise<Category> {
-		const category = this.ormRepository.create({ name });
+		const category = new Category();
 
-		await this.ormRepository.save(category);
+		Object.assign(category, { id: uuid(), name });
+
+		this.categories.push(category);
 
 		return category;
 	}

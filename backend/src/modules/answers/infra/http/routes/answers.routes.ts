@@ -10,5 +10,6 @@ const answersController = new AnswersController();
 
 answersRouter.get('/', answersController.index);
 answersRouter.post('/', ensureAuthenticated, answersController.create);
+answersRouter.delete('/:id', ensureAuthenticated, answersController.delete);
 
 export default answersRouter;

@@ -10,7 +10,7 @@ interface IRequest {
 	password: string;
 }
 
-class CreateUser implements IUserRepository {
+class UsersRepository implements IUserRepository {
 	private ormRepository: Repository<User>;
 
 	constructor() {
@@ -37,10 +37,10 @@ class CreateUser implements IUserRepository {
 		return user;
 	}
 
-	public async create(dataUser: IRequest): Promise<User> {
-		const user = this.ormRepository.create(dataUser);
+	public async create(userData: IRequest): Promise<User> {
+		const user = this.ormRepository.create(userData);
 
-		await this.ormRepository.save(dataUser);
+		await this.ormRepository.save(user);
 
 		return user;
 	}
@@ -50,4 +50,4 @@ class CreateUser implements IUserRepository {
 	}
 }
 
-export default CreateUser;
+export default UsersRepository;

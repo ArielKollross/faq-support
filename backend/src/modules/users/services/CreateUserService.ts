@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs';
 
 import IUserRepository from '@modules/users/repositories/IUsersRepository';
+// import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -12,7 +13,9 @@ interface IRequest {
 }
 
 class CreateUser {
-	constructor(private userRepository: IUserRepository) {}
+	constructor(
+		private userRepository: IUserRepository, // private hashProvider: IHashProvider,
+	) {}
 
 	public async execute({ name, email, password }: IRequest): Promise<User> {
 		const findUser = await this.userRepository.findUserByEmail(email);

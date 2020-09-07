@@ -19,15 +19,17 @@ class CreateUser {
 	) {}
 
 	public async execute({ title, reply, category }: IRequest): Promise<Answer> {
-		const findCategory = await this.categoryRepository.findCategory(category);
+		const findCategory = await this.categoryRepository.findCategoryByName(
+			category,
+		);
 
 		if (!findCategory) {
 			throw new AppError('Category is not register or empty');
 		}
 
-		const findExistTitle = await this.answerRepository.findExistTitle(title);
+		const findExistTitle = await this.answerRepository.findAnswerByTitle(title);
 
-		const findExistReply = await this.answerRepository.findExistReply(reply);
+		const findExistReply = await this.answerRepository.findAnswerByReply(reply);
 
 		if (findExistTitle || findExistReply) {
 			throw new AppError('Title or answer is already registered');

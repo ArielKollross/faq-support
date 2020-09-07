@@ -10,6 +10,8 @@ interface IAnswerDTO {
 export default interface IAnswerRepository {
 	create(data: IAnswerDTO): Promise<Answer>;
 	find(): Promise<Answer[]>;
-	findExistTitle(title: string): Promise<Answer | undefined>;
-	findExistReply(reply: string): Promise<Answer | undefined>;
+	findAnswerById(id: string): Promise<Answer | undefined>;
+	findAnswerByTitle(title: string): Promise<Answer | undefined>;
+	findAnswerByReply(reply: string): Promise<Answer | undefined>;
+	delete(id: string): Promise<void>;
 }

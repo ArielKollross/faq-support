@@ -37,7 +37,7 @@ class FakeIssuesRepository implements IIssueRepository {
 	}
 
 	public async delete(id: string): Promise<void> {
-		const findIndex = this.issues.findIndex(element => element.id === id);
+		const findIndex = this.issues.findIndex(issue => issue.id === id);
 
 		this.issues.splice(findIndex, 1);
 	}

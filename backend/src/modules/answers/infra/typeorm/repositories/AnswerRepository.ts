@@ -22,7 +22,13 @@ class AnswerRepository implements IAnswerRepository {
 		return answers;
 	}
 
-	public async findExistTitle(title: string): Promise<Answer | undefined> {
+	public async findAnswerById(id: string): Promise<Answer | undefined> {
+		const answer = await this.ormRepository.findOne(id);
+
+		return answer;
+	}
+
+	public async findAnswerByTitle(title: string): Promise<Answer | undefined> {
 		const findTitle = await this.ormRepository.findOne({
 			where: { title },
 		});
@@ -30,7 +36,7 @@ class AnswerRepository implements IAnswerRepository {
 		return findTitle;
 	}
 
-	public async findExistReply(reply: string): Promise<Answer | undefined> {
+	public async findAnswerByReply(reply: string): Promise<Answer | undefined> {
 		const findExistReply = await this.ormRepository.findOne({
 			where: { reply },
 		});
@@ -48,6 +54,10 @@ class AnswerRepository implements IAnswerRepository {
 		await this.ormRepository.save(answer);
 
 		return answer;
+	}
+
+	public async delete(id: string): Promise<void> {
+		await this.ormRepository.delete(id);
 	}
 }
 

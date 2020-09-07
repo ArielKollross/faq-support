@@ -11,6 +11,7 @@ export default class UsersController {
 
 		const users = await usersRepository.find();
 
+		// @ts-ignore
 		const removePasswordByUsers = users.map(({ password, ...rest }) => rest);
 
 		return response.json(removePasswordByUsers);

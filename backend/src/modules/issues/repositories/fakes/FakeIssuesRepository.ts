@@ -1,38 +1,46 @@
 import { uuid } from 'uuidv4';
 
-import Issue from '@modules/issues/infra/typeorm/entities/Issue';
-// import AppError from '@shared/errors/AppError';
+import IIssueRepository from '@modules/issues/repositories/IIssuesRepository';
 
-interface Request {
+import Issue from '@modules/issues/infra/typeorm/entities/Issue';
+
+interface IRequest {
 	client_name: string;
 	login_code: string;
 	client_email: string;
 	question: string;
 }
 
-class CreateIssueService {
+class FakeIssuesRepository implements IIssueRepository {
 	private issues: Issue[] = [];
 
-	public async execute({
-		client_name,
-		login_code,
-		client_email,
-		question,
-	}: Request): Promise<Issue> {
+	public async find(): Promise<Issue[]> {
+		const issues = this.issues.filter(issue => issue);
+
+		return issues;
+	}
+
+	public async findById(id: string): Promise<Issue | undefined> {
+		const issue = this.issues.find(element => element.id === id);
+
+		return issue;
+	}
+
+	public async create(issueData: IRequest): Promise<Issue> {
 		const issue = new Issue();
 
-		Object.assign(issue, {
-			id: uuid(),
-			client_name,
-			client_email,
-			login_code,
-			question,
-		});
+		Object.assign(issue, { id: uuid() }, issueData);
 
 		this.issues.push(issue);
 
 		return issue;
 	}
+
+	public async delete(id: string): Promise<void> {
+		const findIndex = this.issues.findIndex(element => element.id === id);
+
+		this.issues.splice(findIndex, 1);
+	}
 }
 
-export default CreateIssueService;
+export default FakeIssuesRepository;

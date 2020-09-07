@@ -18,7 +18,7 @@ class IssuesRepository implements IIssueRepository {
 		this.ormRepository = getRepository(Issue);
 	}
 
-	public async findAllIssues(): Promise<Issue[]> {
+	public async find(): Promise<Issue[]> {
 		const issues = await this.ormRepository.find();
 
 		return issues;
@@ -48,7 +48,7 @@ class IssuesRepository implements IIssueRepository {
 		return issue;
 	}
 
-	public async deleteIssue(id: string): Promise<void> {
+	public async delete(id: string): Promise<void> {
 		await this.ormRepository.delete(id);
 	}
 }

@@ -1,5 +1,3 @@
-// quais metodos e retornos o meu repository terá
-
 import Issues from '@modules/issues/infra/typeorm/entities/Issue';
 
 interface ICreateIssueDTO {
@@ -11,7 +9,7 @@ interface ICreateIssueDTO {
 
 export default interface IIssuesRepository {
 	create(data: ICreateIssueDTO): Promise<Issues>;
+	find(): Promise<Issues[]>;
 	findById(id: string): Promise<Issues | undefined>;
-	findAllIssues(): Promise<Issues[]>;
-	deleteIssue(id: string): Promise<void>;
+	delete(id: string): Promise<void>;
 }

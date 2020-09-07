@@ -8,7 +8,7 @@ export default class IssuesController {
 	public async index(request: Request, response: Response): Promise<Response> {
 		const issuesRepository = new IssuesRepository();
 
-		const issues = await issuesRepository.findAllIssues();
+		const issues = await issuesRepository.find();
 		return response.json(issues);
 	}
 
@@ -32,7 +32,6 @@ export default class IssuesController {
 		const { id } = request.params;
 
 		const issuesRepository = new IssuesRepository();
-
 		const deleteIssue = new DeleteIssueService(issuesRepository);
 
 		await deleteIssue.execute(id);

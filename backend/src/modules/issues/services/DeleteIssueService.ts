@@ -11,7 +11,7 @@ class DeleteIssueService {
 			throw new AppError('Issue not found! Error to delete');
 		}
 
-		await this.issuesRepository.deleteIssue(id);
+		await this.issuesRepository.delete(id);
 	}
 }
 

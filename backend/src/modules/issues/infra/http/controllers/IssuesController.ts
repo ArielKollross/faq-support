@@ -1,16 +1,26 @@
 import { Request, Response } from 'express';
 
 import IssuesRepository from '@modules/issues/infra/typeorm/repositories/IssuesRepository';
+
+import ListIssuesService from '@modules/issues/services/ListIssuesService';
 import CreateIssuesService from '@modules/issues/services/CreateIssueService';
 import DeleteIssueService from '@modules/issues/services/DeleteIssueService';
 
 export default class IssuesController {
 	public async index(request: Request, response: Response): Promise<Response> {
+		const { offset, limit } = request.query;
+
+		Number.parseInt(offset);
+		Number.parseInt(limit);
+
+		const newOffset = Number.parseInt(offset);
+
+		console.log('--> ', typeof newOffset);
+
 		const issuesRepository = new IssuesRepository();
+		const listIssues = new ListIssuesService(issuesRepository);
 
-		const { offset, limit } = request.body;
-
-		const issues = await issuesRepository.find(offset, limit);
+		const issues = await listIssues.execute({ offset, limit });
 
 		return response.json(issues);
 	}

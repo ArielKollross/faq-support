@@ -14,7 +14,7 @@ interface IRequestPagination {
 
 export default interface IIssuesRepository {
 	create(data: ICreateIssueDTO): Promise<Issues>;
-	find(offset: number, limit: number): Promise<Issues[]>;
+	find(data: IRequestPagination): Promise<Issues[]>;
 	findById(id: string): Promise<Issues | undefined>;
 	delete(id: string): Promise<void>;
 }

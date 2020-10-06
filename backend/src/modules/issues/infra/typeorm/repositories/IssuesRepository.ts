@@ -11,6 +11,11 @@ interface IRequest {
 	question: string;
 }
 
+interface IRequestPagination {
+	offset: number;
+	limit: number;
+}
+
 class IssuesRepository implements IIssueRepository {
 	private ormRepository: Repository<Issue>;
 
@@ -18,7 +23,7 @@ class IssuesRepository implements IIssueRepository {
 		this.ormRepository = getRepository(Issue);
 	}
 
-	public async find(offset = 0, limit = 10): Promise<Issue[]> {
+	public async find({ offset, limit }: IRequestPagination): Promise<Issue[]> {
 		const issues = await this.ormRepository
 			.createQueryBuilder('issues')
 			.skip(offset)

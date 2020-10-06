@@ -8,7 +8,10 @@ export default class IssuesController {
 	public async index(request: Request, response: Response): Promise<Response> {
 		const issuesRepository = new IssuesRepository();
 
-		const issues = await issuesRepository.find();
+		const { offset, limit } = request.body;
+
+		const issues = await issuesRepository.find(offset, limit);
+
 		return response.json(issues);
 	}
 

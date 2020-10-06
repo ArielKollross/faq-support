@@ -18,8 +18,12 @@ class IssuesRepository implements IIssueRepository {
 		this.ormRepository = getRepository(Issue);
 	}
 
-	public async find(): Promise<Issue[]> {
-		const issues = await this.ormRepository.find();
+	public async find(offset = 0, limit = 10): Promise<Issue[]> {
+		const issues = await this.ormRepository
+			.createQueryBuilder('issues')
+			.skip(offset)
+			.take(limit)
+			.getMany();
 
 		return issues;
 	}

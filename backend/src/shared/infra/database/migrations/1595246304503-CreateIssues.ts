@@ -24,11 +24,15 @@ export default class CreateIssues1595246304503 implements MigrationInterface {
 					{
 						name: 'client_email',
 						type: 'varchar',
-						isUnique: true,
 					},
 					{
 						name: 'question',
 						type: 'varchar',
+					},
+					{
+						name: 'analyzed',
+						type: 'boolean',
+						default: false,
 					},
 					{
 						name: 'created_at',

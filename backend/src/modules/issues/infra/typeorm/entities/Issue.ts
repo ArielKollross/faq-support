@@ -23,6 +23,9 @@ class Issue {
 	@Column()
 	question: string;
 
+	@Column()
+	analyzed: boolean;
+
 	@CreateDateColumn()
 	created_at: Date;
 

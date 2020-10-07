@@ -28,6 +28,12 @@ class Answer {
 	@Column()
 	category_id: string;
 
+	@Column('int')
+	helpful: number;
+
+	@Column('int')
+	unhelpful: number;
+
 	@CreateDateColumn()
 	created_at: Date;
 

@@ -52,6 +52,22 @@ class AnswerRepository implements IAnswerRepository {
 
 		this.answers.splice(findIndex, 1);
 	}
+
+	public async incrementHelpfulAnswer(id: string): Promise<void> {
+		const findIndex = this.answers.findIndex(answer => answer.id === id);
+
+		const count = this.answers[findIndex].helpful;
+
+		this.answers[findIndex].helpful = count + 1;
+	}
+
+	public async incrementUnhelpfulAnswer(id: string): Promise<void> {
+		const findIndex = this.answers.findIndex(answer => answer.id === id);
+
+		const count = this.answers[findIndex].unhelpful;
+
+		this.answers[findIndex].unhelpful = count + 1;
+	}
 }
 
 export default AnswerRepository;

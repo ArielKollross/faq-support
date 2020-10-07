@@ -59,6 +59,30 @@ class AnswerRepository implements IAnswerRepository {
 	public async delete(id: string): Promise<void> {
 		await this.ormRepository.delete(id);
 	}
+
+	public async incrementHelpfulAnswer(id: string): Promise<void> {
+		const answer = await this.ormRepository.findOne(id);
+
+		if (answer) {
+			const count = answer.helpful;
+
+			answer.helpful = count + 1;
+
+			await this.ormRepository.save(answer);
+		}
+	}
+
+	public async incrementUnhelpfulAnswer(id: string): Promise<void> {
+		const answer = await this.ormRepository.findOne(id);
+
+		if (answer) {
+			const count = answer.unhelpful;
+
+			answer.unhelpful = count + 1;
+
+			await this.ormRepository.save(answer);
+		}
+	}
 }
 
 export default AnswerRepository;

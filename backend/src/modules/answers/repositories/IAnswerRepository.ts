@@ -14,4 +14,7 @@ export default interface IAnswerRepository {
 	findAnswerByTitle(title: string): Promise<Answer | undefined>;
 	findAnswerByReply(reply: string): Promise<Answer | undefined>;
 	delete(id: string): Promise<void>;
+
+	incrementHelpfulAnswer(id: string): Promise<void>;
+	incrementUnhelpfulAnswer(id: string): Promise<void>;
 }

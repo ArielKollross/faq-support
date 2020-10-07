@@ -10,13 +10,6 @@ export default class IssuesController {
 	public async index(request: Request, response: Response): Promise<Response> {
 		const { offset, limit } = request.query;
 
-		Number.parseInt(offset);
-		Number.parseInt(limit);
-
-		const newOffset = Number.parseInt(offset);
-
-		console.log('--> ', typeof newOffset);
-
 		const issuesRepository = new IssuesRepository();
 		const listIssues = new ListIssuesService(issuesRepository);
 

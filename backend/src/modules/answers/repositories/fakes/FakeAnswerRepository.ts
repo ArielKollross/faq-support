@@ -8,6 +8,8 @@ interface IRequest {
 	reply: string;
 	category?: string;
 	category_id?: string;
+	// helpful: number;
+	// unhelpful: number;
 }
 
 class AnswerRepository implements IAnswerRepository {
@@ -40,7 +42,7 @@ class AnswerRepository implements IAnswerRepository {
 	public async create(answerData: IRequest): Promise<Answer> {
 		const answer = new Answer();
 
-		Object.assign(answer, { id: uuid() }, answerData);
+		Object.assign(answer, { id: uuid(), helpful: 0, unhelpful: 0 }, answerData);
 
 		this.answers.push(answer);
 

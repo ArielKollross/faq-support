@@ -30,4 +30,34 @@ describe('CreateUser', () => {
 		expect(response).toHaveProperty('token');
 		expect(response.user).toEqual(user);
 	});
+
+	it('Should be not able to login with incorrect email', async () => {
+		await createUser.execute({
+			name: 'Uchiha Madara',
+			email: 'uchiha@konoha.com',
+			password: 'sharingan',
+		});
+
+		await expect(
+			authenticateUser.execute({
+				email: 'uchiha@konoha.com.fw',
+				password: 'sharingan',
+			}),
+		).rejects.toBeInstanceOf(AppError);
+	});
+
+	it('Should be not able to login with incorrect password', async () => {
+		await createUser.execute({
+			name: 'Uchiha Madara',
+			email: 'uchiha@konoha.com',
+			password: 'sharingan',
+		});
+
+		await expect(
+			authenticateUser.execute({
+				email: 'uchiha@konoha.com',
+				password: 'wrong-password',
+			}),
+		).rejects.toBeInstanceOf(AppError);
+	});
 });

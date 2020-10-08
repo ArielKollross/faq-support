@@ -32,6 +32,8 @@ describe('CreateAnswer', () => {
 		expect(answer.title).toBe('How you doing?');
 		expect(answer.reply).toBe('Fine!');
 		expect(answer.category_id).toBe(category.id);
+		expect(answer.helpful).toBe(0);
+		expect(answer.unhelpful).toBe(0);
 	});
 
 	it('Should not be able to create new answer without category', async () => {

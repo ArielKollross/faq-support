@@ -16,6 +16,16 @@ interface IRequestPagination {
 	limit: number;
 }
 
+interface IPagination {
+	page: {
+		page_index: number;
+		page_size: number;
+		page_count: number;
+		total_item: number;
+	};
+	data: Issue[];
+}
+
 class IssuesRepository implements IIssueRepository {
 	private ormRepository: Repository<Issue>;
 
@@ -23,14 +33,29 @@ class IssuesRepository implements IIssueRepository {
 		this.ormRepository = getRepository(Issue);
 	}
 
-	public async find({ offset, limit }: IRequestPagination): Promise<Issue[]> {
+	public async find({
+		offset,
+		limit,
+	}: IRequestPagination): Promise<IPagination> {
 		const issues = await this.ormRepository
 			.createQueryBuilder('issues')
-			.skip(offset)
+			.skip((offset - 1) * limit)
 			.take(limit)
 			.getMany();
 
-		return issues;
+		const count = await this.ormRepository.count();
+
+		const totalInPage = issues.length;
+
+		return {
+			page: {
+				page_index: offset,
+				page_size: totalInPage,
+				page_count: Math.ceil(count / limit),
+				total_item: count,
+			},
+			data: issues,
+		};
 	}
 
 	public async findById(id: string): Promise<Issue | undefined> {

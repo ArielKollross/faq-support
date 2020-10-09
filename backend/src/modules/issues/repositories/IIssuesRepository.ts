@@ -1,4 +1,4 @@
-import Issue from '@modules/issues/infra/typeorm/entities/Issue';
+import Issues from '@modules/issues/infra/typeorm/entities/Issue';
 
 interface ICreateIssueDTO {
 	client_name: string;
@@ -12,19 +12,9 @@ interface IRequestPagination {
 	limit: number;
 }
 
-interface IPagination {
-	page: {
-		page_index: number;
-		page_size: number;
-		page_count: number;
-		total_item: number;
-	};
-	data: Issue[];
-}
-
 export default interface IIssuesRepository {
-	create(data: ICreateIssueDTO): Promise<Issue>;
-	find(data: IRequestPagination): Promise<IPagination>;
-	findById(id: string): Promise<Issue | undefined>;
+	create(data: ICreateIssueDTO): Promise<Issues>;
+	find(data: IRequestPagination): Promise<Issues[]>;
+	findById(id: string): Promise<Issues | undefined>;
 	delete(id: string): Promise<void>;
 }

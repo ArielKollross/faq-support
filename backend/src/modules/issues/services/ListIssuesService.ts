@@ -1,6 +1,5 @@
 import Issue from '@modules/issues/infra/typeorm/entities/Issue';
 import IIssueRepository from '@modules/issues/repositories/IIssuesRepository';
-import AppError from '@shared/errors/AppError';
 
 interface IRequestPagination {
 	offset: number;
@@ -14,12 +13,8 @@ class ListIssuesService {
 		offset,
 		limit,
 	}: IRequestPagination): Promise<Issue[]> {
-		if (parseInt(offset) < 0 || parseInt(limit) < 0) {
-			throw new AppError('Invalid query params pagination');
-		}
-
 		const issues = await this.issuesRepository.find({
-			offset: parseInt(offset) || 1,
+			offset: parseInt(offset) || 0,
 			limit: parseInt(limit) || 10,
 		});
 

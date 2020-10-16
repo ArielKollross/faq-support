@@ -8,4 +8,4 @@ tmp/*
 .idea/
 .env
 coverage
-ormconfig.json
+# ormconfig.json

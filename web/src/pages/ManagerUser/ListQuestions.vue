@@ -61,11 +61,12 @@
           </v-row>          
         </v-card>
 
-         <Pagination
+         <!-- <Pagination
+         length="4"
          :pagination="pagination" 
          @onPreviousClick="search" 
          @onNextClick="search"
-         ></Pagination>
+         ></Pagination> -->
 
       </v-container>
     </v-card>
@@ -76,18 +77,16 @@
 import moment from "moment";
 import { mapGetters } from 'vuex';
 
-import Pagination from '@/components/Pagination';
+// import Pagination from '@/components/Pagination';
 
 export default {
   components: {
-    Pagination
+    // Pagination
   },
   data() {
     return {
       pagination: {
-        offset: 0,
-        limit: 5,
-        count: 0
+      
       }
     };
   },

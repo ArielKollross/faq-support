@@ -13,8 +13,15 @@ export default {
     context.commit('setAuthenticated', false);
   },
 
- getData({ commit }) {
-     api.get('/issues')
+async getData({ commit }) {
+  const { token } = this.$store.state; 
+
+  await api.get('/issues', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then(response => {
         commit('setIssues', response.data);
       });

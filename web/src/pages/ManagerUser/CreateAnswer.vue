@@ -83,12 +83,24 @@ export default {
       },
     };
   },
-  created() {
-    api.get('/categories').then((response) => {
-      this.categories = response.data.map((category) => {
+  async created() {
+    const { token } = this.$store.state;
+
+    try {
+      await api.get('/categories', {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+      }).then((response) => {
+        this.categories = response.data.map((category) => {
         return category.name;
       });
     });
+    } catch (error) {
+      console.log(error.data);
+    }
+
   },
   methods: {
    async handlePostAnswer() {
